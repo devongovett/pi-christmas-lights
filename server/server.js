@@ -43,7 +43,6 @@ app.post('/play', async (req, res) => {
   let startTime = Date.now() + 1000;
   res.send({startTime});
 
-  // rpio.msleep(Date.now() - startTime);
   await sleep(Date.now() - startTime);
   await start(data);
 });
@@ -84,7 +83,6 @@ app.get('/play/:filename', async (req, res) => {
   let startTime = Date.now() + 1000;
   res.send({startTime});
 
-  // rpio.msleep(Date.now() - startTime);
   await sleep(Date.now() - startTime);
   await start(data);
 });

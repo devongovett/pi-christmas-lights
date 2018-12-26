@@ -1,7 +1,6 @@
 {
-  "name": "xmas",
+  "name": "pi-christmas-lights",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
     "start": "node server/server.js",
@@ -14,7 +13,6 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "parcel": "^1.11.0",
-    "puppeteer": "^1.11.0",
     "react": "^16.0.0",
     "react-dom": "^16.7.0"
   },
