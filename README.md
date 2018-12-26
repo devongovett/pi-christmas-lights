@@ -39,6 +39,8 @@ on our local network.
 
 #### Uploader
 
+![img_3364](https://media.giphy.com/media/67SXdxFjjEodEzA08A/giphy.gif)
+
 The uploader uses the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 to perform audio analysis and generate the data needed to drive the light show. This happens in advance
 of the actual show so we don't need to do it in real time. The audio file is uploaded to the Pi and
@@ -57,6 +59,8 @@ using virtual lights. This makes it much easier to tweak things without going ou
 to watch the light show for real. 😜
 
 #### Playback
+
+<img src="https://user-images.githubusercontent.com/19409/50433089-0ef35e80-08a4-11e9-91b5-b8d50d5c3808.PNG" width="200">
 
 When it is time to play back a light show, a separate web page served from the Pi shows a list of songs
 which have been uploaded. Tapping on one of these downloads the audio to the user's phone, and triggers
