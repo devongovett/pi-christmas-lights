@@ -1,0 +1,27 @@
+{
+  "name": "xmas",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server/server.js",
+    "watch": "parcel ui/*.html",
+    "build": "parcel ui/*.html"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "classnames": "^2.2.6",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "parcel": "^1.11.0",
+    "puppeteer": "^1.11.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.7.0"
+  },
+  "optionalDependencies": {
+    "rpio": "^1.0.11"
+  },
+  "browserslist": [
+    "last 1 Chrome version"
+  ]
+}
