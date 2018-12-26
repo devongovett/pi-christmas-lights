@@ -48,7 +48,7 @@ class App extends React.Component {
   async setupAudio(buffer) {
     this.audioData = buffer.slice();
     this.audioBuffer = await this.decodeAudio(buffer);
-    this.data = await this.analyze(this.audioBuffer, offlineCtx);
+    this.data = await this.analyze(this.audioBuffer);
   }
 
   async decodeAudio(buffer) {
