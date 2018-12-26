@@ -12,8 +12,7 @@ using a Raspberry Pi and the Web Audio API.
 The hardware uses a Raspberry Pi, 8 relays, some standard electrical outlets, and a bunch of wiring,
 all connected together in a wooden box under our front deck.
 
-<img src="https://pbs.twimg.com/media/Du-ZBB9XcAAyuk4.jpg:large" width="400">
-<img src="https://pbs.twimg.com/media/Du_0kl-W0AASkga.jpg" width="400">
+<img src="https://pbs.twimg.com/media/Du-ZBB9XcAAyuk4.jpg:large" width="400"> <img src="https://pbs.twimg.com/media/Du_0kl-W0AASkga.jpg" width="400">
 
 Parts list:
 
