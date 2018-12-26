@@ -4,6 +4,7 @@ This is the software for a project I built with my brother to sync our Christmas
 using a Raspberry Pi and the Web Audio API.
 
 **[Watch the video!](https://twitter.com/devongovett/status/1077725421356101633)**
+
 ![](https://media.giphy.com/media/3iBttTVcWRd7Ym5X4M/giphy.gif)
 
 ## Hardware
@@ -11,8 +12,8 @@ using a Raspberry Pi and the Web Audio API.
 The hardware uses a Raspberry Pi, 8 relays, some standard electrical outlets, and a bunch of wiring,
 all connected together in a wooden box under our front deck.
 
-![](https://pbs.twimg.com/media/Du-ZBB9XcAAyuk4.jpg:large)
-![](https://pbs.twimg.com/media/Du_0kl-W0AASkga.jpg)
+<img src="https://pbs.twimg.com/media/Du-ZBB9XcAAyuk4.jpg:large" width="400">
+<img src="https://pbs.twimg.com/media/Du_0kl-W0AASkga.jpg" width="400">
 
 Parts list:
 
