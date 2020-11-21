@@ -16,10 +16,13 @@ const MIN_FREQ = 20;
 const MAX_FREQ = 15000;
 
 // This is the number of lights that are connected.
-const NUM_LIGHTS = 8;
+const NUM_LIGHTS = 16;
+
+// The number of bytes needed to represent a single frame.
+const BYTES_PER_FRAME = Math.ceil(NUM_LIGHTS / 8);
 
 // Number of frames before rotating the channels
-const ROTATE_FRAMES = 5;
+const ROTATE_FRAMES = FPS;
 
 // This is the IP address the raspberry pi is running at.
 const PI_ADDRESS = 'http://192.168.0.22:3000';
@@ -71,7 +74,7 @@ class App extends React.Component {
     // and store the frame rate as the first byte of data.
     let interval = (1000 / FPS) / 1000;
     let numFrames = Math.ceil(buffer.duration / interval);
-    let data = new Uint8Array(numFrames + 1);
+    let data = new Uint8Array((numFrames + 1) * BYTES_PER_FRAME);
     data[0] = FPS;
 
     // At each interval, suspend the audio context and create a frame of data
@@ -81,12 +84,15 @@ class App extends React.Component {
     let frame = async () => {
       // Get the state of each light for this frame, and pack them into bits.
       let lights = this.updateAnalyser();
-      let val = 0;
-      for (let i = 7; i >= 0; i--) {
-        val = (val << 1) | (lights[i] ? 1 : 0);
-      }
+      let index = NUM_LIGHTS - 1;
+      for (let j = 0; j < BYTES_PER_FRAME; j++) {
+        let val = 0;
+        for (let i = 7; i >= 0 && index >= 0; i--) {
+          val = (val << 1) | (lights[index--] ? 1 : 0);
+        }
 
-      data[i++] = val;
+        data[i++] = val;
+      }
 
       // Resume the audio context and suspend at the next frame offset
       offset += interval;
@@ -179,19 +185,23 @@ class App extends React.Component {
     let interval = 1000 / fps;
     let lastFrame = -1;
     let startTime = Date.now();
-    let LIGHTS = [0, 1, 2, 3, 4, 5, 6, 7];
+    let LIGHTS = Array(NUM_LIGHTS).fill(0).map((_, i) => i);
     let onFrame = () => {
       // Decide which frame to show based on time
       let frame = Math.round((Date.now() - startTime) / interval);
       if (frame !== lastFrame) {
         lastFrame = frame;
-        let val = data[frame];
-        if (val == null) return;
+        let idx = frame * BYTES_PER_FRAME;
+        if (idx >= data.length) return;
 
         // Unpack light states from bits
         let lights = [];
-        for (let i = 0; i < NUM_LIGHTS; i++) {
-          lights[LIGHTS[i]] = Boolean((val >>> i) & 1);
+        let index = 0;
+        for (let j = 0; j < BYTES_PER_FRAME; j++) {
+          let val = data[idx + j];
+          for (let i = 0; i < 8 && index < NUM_LIGHTS; i++) {
+            lights[LIGHTS[index++]] = Boolean((val >>> i) & 1);
+          }
         }
 
         // Rotate the lights every few frames so the frequency channels move around

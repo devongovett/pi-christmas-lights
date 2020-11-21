@@ -64,7 +64,7 @@ app.post('/upload', async (req, res) => {
 
 // List available audio files
 app.get('/list', async (req, res) => {
-  let files = fs.readdirSync(path.join(__dirname, '..', 'audio')).filter(file => !file.endsWith('.bin'));
+  let files = fs.readdirSync(path.join(__dirname, '..', 'audio')).filter(file => file.endsWith('.bin'));
   res.send({files});
 });
 
