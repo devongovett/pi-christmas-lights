@@ -15,11 +15,21 @@ let LIGHTS = [
   {pin: 16, on: null}, // Icicles Garage
   {pin: 18, on: null}, // Stairs
   {pin: 22, on: null}, // Handrails
-  {pin: 29, on: null}  // Tree
+  {pin: 29, on: null},  // Tree
+  {pin: 31, on: null},
+  {pin: 32, on: null},
+  {pin: 33, on: null},
+  {pin: 35, on: null},
+  {pin: 36, on: null},
+  {pin: 37, on: null},
+  {pin: 38, on: null},
+  {pin: 40, on: null}
 ];
 
+const BYTES_PER_FRAME = Math.ceil(LIGHTS.length / 8);
+
 // Number of frames before rotating the channels
-const ROTATE_FRAMES = 5;
+const ROTATE_FRAMES = 10;
 
 // Initialize the pins for each light
 for (let light of LIGHTS) {
@@ -64,7 +74,7 @@ app.post('/upload', async (req, res) => {
 
 // List available audio files
 app.get('/list', async (req, res) => {
-  let files = fs.readdirSync(path.join(__dirname, '..', 'audio')).filter(file => file.endsWith('.bin'));
+  let files = fs.readdirSync(path.join(__dirname, '..', 'audio')).filter(file => !file.endsWith('.bin') && !file.startsWith('.'));
   res.send({files});
 });
 
@@ -99,24 +109,32 @@ async function play(data) {
   let fps = data[0];
   let frameInterval = Math.floor(1000 / fps);
 
+  data = data.slice(1);
+  let numFrames = Math.floor(data.length / BYTES_PER_FRAME);
+
   let frameIndex = 0;
-  for (let frame of data.slice(1)) {
+  while (frameIndex < numFrames) {
     if (!playing) {
       break;
     }
 
     let frameStart = Date.now();
+    let idx = frameIndex * BYTES_PER_FRAME;
 
     // Light status for a frame is packed into bits
-    for (let i = 0; i < LIGHTS.length; i++) {
-      let light = LIGHTS[i];
-      let on = Boolean((frame >>> i) & 1);
-      if (light.on === on) {
-        continue;
+    let index = 0;
+    for (let j = 0; j < BYTES_PER_FRAME; j++) {
+      let val = data[idx + j];
+      for (let i = 0; i < 8 && index < LIGHTS.length; i++) {
+        let light = LIGHTS[index++];
+        let on = Boolean((val >>> i) & 1);
+        if (light.on === on) {
+          continue;
+        }
+  
+        rpio.write(light.pin, on ? rpio.HIGH : rpio.LOW);
+        light.on = on;
       }
-
-      rpio.write(light.pin, on ? rpio.HIGH : rpio.LOW);
-      light.on = on;
     }
 
     // Rotate the lights every few frames so the frequency channels move around

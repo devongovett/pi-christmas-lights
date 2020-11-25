@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 // This is the IP address the raspberry pi is running at.
-const PI_ADDRESS = 'http://192.168.0.22:3000';
+const PI_ADDRESS = 'http://pi.local';
 
 class App extends React.Component {
   constructor() {

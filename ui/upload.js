@@ -25,7 +25,7 @@ const BYTES_PER_FRAME = Math.ceil(NUM_LIGHTS / 8);
 const ROTATE_FRAMES = FPS;
 
 // This is the IP address the raspberry pi is running at.
-const PI_ADDRESS = 'http://192.168.0.22:3000';
+const PI_ADDRESS = 'http://pi.local';
 
 class App extends React.Component {
   constructor() {

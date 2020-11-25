@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server/server.js",
     "watch": "parcel ui/*.html",
-    "build": "parcel ui/*.html"
+    "build": "parcel build ui/*.html"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
